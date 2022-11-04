@@ -1,0 +1,2 @@
+for creation of factory in php artisan tinker
+Post::factory()->count(5)->create();
