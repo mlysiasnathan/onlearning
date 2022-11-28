@@ -10,8 +10,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{ asset("\img\favicon.png") }}" rel="icon">
-  <link href="{{ asset("\img\apple-touch-icon.png") }}" rel="apple-touch-icon">
+  <link href="{{ asset("/img/favicon.png") }}" rel="icon">
+  <link href="{{ asset("/img/apple-touch-icon.png") }}" rel="apple-touch-icon">
 
   <!-- Vendor CSS Files -->
   <link href="{{ asset("/vendor/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
@@ -47,6 +47,9 @@
   <script src="{{ asset("/vendor/php-email-form/validate.js") }}"></script>
 
   <!-- Template Main JS File -->
+  
+  <script src="{{ asset("/js/vue.js") }}"></script>
+
   <script src="{{ asset("/js/main.js") }}"></script>
 
 </body>

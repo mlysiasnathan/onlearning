@@ -209,44 +209,89 @@
       clickable: true
     }
   });
-
-
-  // LOG IN
-
-
-  const container = document.querySelector('.containerLog'),
-	  showHidePwd = document.querySelectorAll('.ShowHidePwd'),
-	  pwdFiedls = document.querySelectorAll('.password'),
-	  signupLink = document.querySelector('.signup-link'),
-	  loginLink = document.querySelector('.login-link');
-
-
-// hide/show password icon changes
-	showHidePwd.forEach(eyeIcon =>{
-		eyeIcon.addEventListener('click', () => {
-			pwdFiedls.forEach(pwdFiedl => {
-				if (pwdFiedl.type === "password") {
-					pwdFiedl.type = "text"
-					showHidePwd.forEach(icon =>{
-						icon.classList.replace("bi-eye-slash", "bi-eye")
-					})
-				}else{
-					pwdFiedl.type = "password"
-					showHidePwd.forEach(icon =>{
-						icon.classList.replace("bi-eye", "bi-eye-slash")
-					})
-				}
-			})
-		})
-	})
-
-
-// log in page VS sign up page
-
-signupLink.addEventListener('click', () =>{
-	container.classList.add('active')
-})
-loginLink.addEventListener('click', () =>{
-	container.classList.remove('active')
-})
 })()
+
+// vue code
+// LOG IN
+let vm = new Vue ({
+  el: '#login',
+  data:{
+      email : '',
+      password: '',
+      type: 'password',
+      emailError: false,
+      passwordError: false,
+      muted: true,
+      signup: true,
+      icon: 'bi bi-eye-slash ShowHidePwd'
+  },
+  methods:{
+      showPassword(){
+          if(this.showPsd){
+              this.showPsd = false
+              this.type = 'password'
+              this.icon = 'bi bi-eye-slash ShowHidePwd'
+          }else{
+              this.showPsd = true
+              this.type = 'text'
+              this.icon = 'bi bi-eye ShowHidePwd'
+          }
+      },
+      loginSingUp(){
+        return this.signup ? 'active' : ''
+      },
+      link(){
+        return this.signup ? this.signup = false : this.signup = true
+      }
+  },
+
+  watch:{
+      email(value){
+          if(value == ''){
+              this.emailError = 'Field email must be filled'
+              this.muted = true
+          }else if(!value.includes('&')){
+              this.emailError = 'Field email must contain & '
+              this.muted = true
+          }else{
+              this.emailError = false,
+              this.muted = false
+          }
+      },
+      password(passwordValue){
+          if(passwordValue == ''){
+              this.passwordError = 'Field password must be filled'
+              this.muted = true
+          }else if(passwordValue.length < 3){
+              this.passwordError = 'Field password must be at least 3 characters '
+              this.muted = true
+          }
+          else{
+              this.passwordError = false,
+              this.muted = false
+          }
+      }
+      
+  }
+
+})
+new Vue({
+  el:'#alert-active',
+  data:{
+    counter: 6,
+    alertt: false,
+  },
+  mounted: function(){
+    this.alertt = true
+    setTimeout(() => {
+        this.alertt = false
+    }, 6000);
+    this.$timer = setInterval(() => {
+        this.counter--
+        if(this.counter <= 0){
+            clearInterval(this.$timer)
+            this.counter = 6
+        }
+    }, 1000);
+},
+})

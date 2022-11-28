@@ -1,5 +1,5 @@
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top m-2 rounded">
+  <header id="header" class="fixed-top m-2">
     <div class="container d-flex align-items-center justify-content-between">
       <a href="{{ route("home") }}" class="logo"><img src="{{ asset("/img/apple-touch-icon.png") }}" rel="icon" alt="" class="img-fluid small"></a>
       <h1 class="logo"><a href="{{ route("home") }}">OnLearning</a></h1>      
@@ -9,7 +9,7 @@
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
+          <li><a class="nav-link scrollto " href="#portfolio">Categories & Courses</a></li>
           <li><a class="nav-link scrollto" href="#team">Team</a></li>
           
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
