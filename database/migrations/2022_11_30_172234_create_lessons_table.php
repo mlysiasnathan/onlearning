@@ -22,7 +22,7 @@ return new class extends Migration
             $table->mediumText('les_content');
             $table->timestamps();
 
-            $table->foreign('cat_id')-references('cat_id')->on('lessons_categories');
+            $table->foreign('cat_id')-references('cat_id')->on('lessons_categories')->onDelete('cascade');
         });
     }
 

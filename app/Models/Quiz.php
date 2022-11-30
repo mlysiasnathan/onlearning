@@ -19,5 +19,5 @@ class Quiz extends Model
         'ans_3',
         'ans_4',
     ];
-    
+
 }

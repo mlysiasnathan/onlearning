@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('pdf_file');
             $table->timestamps();
 
-            $table->foreign('les_id')-references('les_id')->on('lessons');
+            $table->foreign('les_id')-references('les_id')->on('lessons')->onDelete('cascade');
         });
     }
 

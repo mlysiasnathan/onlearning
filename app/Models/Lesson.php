@@ -42,6 +42,16 @@ class Lesson extends Model
     }
 
     /**
+     * Get the quiz associated with the Lesson
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function quiz(): HasOne
+    {
+        return $this->hasOne(Quiz::class, 'les_id', 'les_id');
+    }
+
+    /**
      * Get the lessonCategory that owns the Lesson
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
