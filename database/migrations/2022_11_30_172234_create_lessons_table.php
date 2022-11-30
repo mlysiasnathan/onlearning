@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->id('les_id');
             $table->string('les_name');
-            $table->string('cat_id');
-            $table->string('les_price');
+            $table->unsignedBigInteger('cat_id');
+            $table->integer('les_price');
             $table->string('les_img');
-            $table->string('les_content');
+            $table->mediumText('les_content');
             $table->timestamps();
+
+            $table->foreign('cat_id')-references('cat_id')->on('lessons_categories');
         });
     }
 

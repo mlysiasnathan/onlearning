@@ -15,14 +15,16 @@ return new class extends Migration
     {
         Schema::create('quiz', function (Blueprint $table) {
             $table->id('quiz_id');
-            $table->string('les_id');
-            $table->string('question');
-            $table->string('correct_ans');
-            $table->string('ans_1');
-            $table->string('ans_2');
-            $table->string('ans_3');
-            $table->string('ans_4');
+            $table->unsignedBigInteger('les_id');
+            $table->text('question');
+            $table->text('correct_ans');
+            $table->text('ans_1');
+            $table->text('ans_2');
+            $table->text('ans_3');
+            $table->text('ans_4');
             $table->timestamps();
+
+            $table->foreign('les_id')-references('les_id')->on('lessons');
         });
     }
 

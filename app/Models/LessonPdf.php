@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class LessonPdf extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'pdf_id';
+
+    protected $fillable = [
+        'pdf_file',
+    ];
 }

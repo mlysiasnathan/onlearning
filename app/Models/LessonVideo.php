@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class LessonVideo extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'vid_id';
+
+    protected $fillable = [
+        'vid_file',
+    ];
 }

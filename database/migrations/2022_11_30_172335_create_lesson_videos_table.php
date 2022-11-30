@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('lesson_videos', function (Blueprint $table) {
             $table->id('vid_id');
-            $table->string('les_id');
+            $table->unsignedBigInteger('les_id');
             $table->string('vid_file');
             $table->timestamps();
+
+            $table->foreign('les_id')-references('les_id')->on('lessons');
         });
     }
 
