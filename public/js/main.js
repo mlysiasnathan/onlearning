@@ -222,7 +222,7 @@ let vm = new Vue ({
       emailError: false,
       passwordError: false,
       muted: true,
-      signup: true,
+      signup: false,
       icon: 'bi bi-eye-slash ShowHidePwd'
   },
   methods:{

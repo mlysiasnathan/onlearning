@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('score');
             $table->timestamps();
 
-            $table->foreign('user_id')-references('user_id')->on('users')->onDelete('cascade');
-            $table->foreign('les_id')-references('les_id')->on('lessons');
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('les_id')->references('les_id')->on('lessons');
         });
     }
 

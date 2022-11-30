@@ -115,16 +115,16 @@
                         @endforeach
                     @endif
                     <div class="input-field">
-                      <input type="email" name="email_reg" placeholder="Enter your email :" >
+                      <input type="email" name="email" placeholder="Enter your email :" >
                       <i class="bx bx-envelope icon"></i>
                     </div>
                     @if ($errors->any())
-                        @foreach ($errors->get('email_reg') as $error)
+                        @foreach ($errors->get('email') as $error)
                             <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
                         @endforeach
                     @endif
                     <div class="input-field">
-                      <input class="password" type="password" name="password_reg" placeholder="Create a Password :">
+                      <input class="password" type="password" name="password" placeholder="Create a Password :">
                       <i class="bx bx-lock icon"></i>
                       <i :class="icon" @@click.prevent.stop="showPassword"></i>
                     </div>

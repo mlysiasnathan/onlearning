@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Quiz;
 use App\Models\LessonPdf;
 use App\Models\LessonVideo;
 use App\Models\LessonCategory;
