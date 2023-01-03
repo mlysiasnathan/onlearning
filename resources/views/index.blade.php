@@ -13,18 +13,18 @@
       <div class="row">
         
         <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-         
+          
+            
+          
           <h1>Get the skills you need for a tech career in just 3 months.</h1>
-          @if ($errors->any())
-          <div id="alert-active" v-if="alertt">
+          <div id="message-active">
+            @if ($errors->any())
               @foreach ($errors->all() as $error)
-                <div class="alert alert-danger alert-dismissible fade show" style="font-size: 13px" id="alerttt" v-if="alertt">@{{ counter }}</br>
-                  <h6 class="small">{{ $error }} </h6>
-                  <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <vue-alert type="alert-danger" message="{{ $error }}" :start="8"></vue-alert>
               @endforeach
+            @endif
           </div>
-        @endif
+        
           <ul>
             <li><i class="ri-check-line"></i> Learn at your own pace with hands-on courses.</li>
             <li><i class="ri-check-line"></i> 70+ programs for all areas of your life</li>
@@ -115,21 +115,21 @@
                         @endforeach
                     @endif
                     <div class="input-field">
-                      <input type="email" name="email" placeholder="Enter your email :" >
+                      <input type="email" name="email_" placeholder="Enter your email :" >
                       <i class="bx bx-envelope icon"></i>
                     </div>
                     @if ($errors->any())
-                        @foreach ($errors->get('email') as $error)
+                        @foreach ($errors->get('email_') as $error)
                             <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
                         @endforeach
                     @endif
                     <div class="input-field">
-                      <input class="password" type="password" name="password" placeholder="Create a Password :">
+                      <input class="password" type="password" name="password_" placeholder="Create a Password :">
                       <i class="bx bx-lock icon"></i>
                       <i :class="icon" @@click.prevent.stop="showPassword"></i>
                     </div>
                     @if ($errors->any())
-                        @foreach ($errors->get('password_reg') as $error)
+                        @foreach ($errors->get('password_') as $error)
                             <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
                         @endforeach
                     @endif

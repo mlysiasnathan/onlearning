@@ -211,8 +211,50 @@
   });
 })()
 
-// vue code
+// vueJs CODE====================================================================================================================================================================
 // LOG IN
+let alertVue = Vue.component('vue-alert', {
+  props: {
+    type: {type: String, default: 'alert-primary'},
+    message: {type : String, default: 'Alert found'},
+    start: {type: Number, default: 4}
+  },
+  data: function(){
+      return {
+        countdown : 0,
+        alertActive: false,
+      }
+  },
+  mounted: function() {
+      this.countdown = this.start
+      this.alertActive = true
+      this.$countdown = this.countdown * 1000
+      setTimeout(() => {
+          this.alertActive = false
+      }, this.$countdown);
+      this.$timer = setInterval(() => {
+          this.countdown--
+          if(this.countdown <= 0){
+              clearInterval(this.$timer)
+              this.countdown = 6
+          }
+      }, 1000);
+  },
+  template: 
+  `<transition name="fade">
+      <div class="alert alert-dismissible fade show" :class="type" v-if="alertActive">{{ countdown }}</br>
+        <h6 class="small">{{ message}}</h6>
+        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </transition>`,
+})
+// import {alertVue} from './vue-components/vue-alert.vue';
+
+new Vue({
+  el: '#message-active',
+  components: { alertVue },
+})
+
 let vm = new Vue ({
   el: '#login',
   data:{
@@ -274,24 +316,4 @@ let vm = new Vue ({
       
   }
 
-})
-new Vue({
-  el:'#alert-active',
-  data:{
-    counter: 6,
-    alertt: false,
-  },
-  mounted: function(){
-    this.alertt = true
-    setTimeout(() => {
-        this.alertt = false
-    }, 6000);
-    this.$timer = setInterval(() => {
-        this.counter--
-        if(this.counter <= 0){
-            clearInterval(this.$timer)
-            this.counter = 6
-        }
-    }, 1000);
-},
 })

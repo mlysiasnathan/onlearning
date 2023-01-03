@@ -1647,3 +1647,11 @@ section {
   /* background: linear-gradient(180deg,red,black); */
   background-color:#063084;
 }
+
+/* .fade-enter-active, .fade-leave-active{
+  transition: opacity 1s, transform 1s;
+}
+.fade-enter, .fade-leave-active{
+  opacity: 0;
+  transform: translateX(30px);
+} */

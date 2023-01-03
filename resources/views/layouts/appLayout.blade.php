@@ -50,7 +50,7 @@
   
   <script src="{{ asset("/js/vue.js") }}"></script>
 
-  <script src="{{ asset("/js/main.js") }}"></script>
+  <script type="module" src="{{ asset("/js/main.js") }}"></script>
 
 </body>
 
