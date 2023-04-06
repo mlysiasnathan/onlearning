@@ -62,7 +62,7 @@
         </div>
 
       </div>
-    </section><!-- End Portfolio Details Section -->
+    </section><!-- End Categories Section -->
 
   </main><!-- End #main -->
 

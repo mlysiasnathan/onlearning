@@ -270,6 +270,7 @@
 
         <div class="row portfolio-container">
           @forelse ($categories as $category)
+          
             @forelse ($category->lessons as $lesson)
 
               <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $category->cat_name }}">
@@ -280,14 +281,15 @@
                     <p>{{ $category->cat_name }}</p>
                     <div class="portfolio-links">
                       <a href="{{ asset("/img/$lesson->les_img") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $lesson->les_name }}"><i class="bx bx-plus"></i></a>
-                      <a href="{{ route('course') }}" title="More Details"><i class="bx bx-link"></i></a>
+                      <a href="{{ route('course.show', ['name' => $category->cat_name, 'course_name' => $lesson->les_name]) }}" title="More Details"><i class="bx bx-link"></i></a>
                     </div>
                   </div>
                 </div>
               </div>
             @empty
-              {{-- <div class="col-12 alert alert-warning">Courses not yet published !</div> --}}
+              {{-- <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $category->cat_name }}">Courses not yet published !</div> --}}
             @endforelse
+            
           @empty
             <span>Category not yet published !</span>
           @endforelse

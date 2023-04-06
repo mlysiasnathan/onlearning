@@ -33,7 +33,7 @@ Route::get('/categories',[CategoriesController::class, 'index'] )->name('categor
 
 Route::get('/category/{name}',[CategoriesController::class, 'show'] )->name('category.show');
 
-Route::get('/category/php/php-basics',[CoursesController::class, 'index'] )->name('course');
+Route::get('/category/{name}/course/{course_name}',[CoursesController::class, 'show'] )->name('course.show');
 
 Route::get('/users', [UsersController::class, 'users'])->name('users');
 
