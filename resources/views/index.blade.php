@@ -1,9 +1,9 @@
 
-@extends('layouts/appLayout')
+@extends('layouts.appLayout')
     
 @section('content')
 
-@include('includes/navbar')
+@include('includes.navbar')
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
@@ -42,129 +42,10 @@
         
       </div>
     </div>
-@guest
-<!-- login -->
-    <div class="modal fade" id="login" role="dialog" aria-modal="true" data-bs-keyboard="true" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="containerLog" :class="loginSingUp()">
-              <div class="forms">
-                <div class="form login">
-                  <span class="title">Login</span>
-                  <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <div class="input-field">
-                      <input type="email" name="email" placeholder="Enter your email :" v-model="email" required>
-                      <i class="bx bx-envelope icon"></i>
-                    </div>
-                    <h6 class="mt-1 text-danger " style="font-size: 13px" v-if="emailError">@{{ emailError }}</h6>
-                    @if ($errors->any())
-                        @foreach ($errors->get('email') as $error)
-                            <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
-                        @endforeach
-                    @endif
-                    <div class="input-field">
-                      <input class="password" :type="type" name="password" placeholder="Enter your Password :" v-model="password" required>
-                      <i class="bx bx-lock icon"></i>
-                      <i :class="icon" @@click.prevent.stop="showPassword"></i>
-                    </div>
-                    <h5 class="mt-1 text-danger" style="font-size: 13px" v-if="passwordError">@{{ passwordError }}</h5>
-                    @if ($errors->any())
-                        @foreach ($errors->get('password') as $error)
-                            <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
-                        @endforeach
-                    @endif
-                    <div class="checkbox-text">
-                      <div class="checkbox-content">
-                        <input type="checkbox" name="" id="logCheck">
-                        <label for="logCheck" class="text">Remember me</label>
-                        
-                      </div>
-                      <a href="#" class="text">Forget password ?</a>
-                      
-                    </div>
-                    <div class="input-field ">
-                      <button type="submit" name="" :disabled="muted" class="btn-get-started scrollto col-12" >Login Now</button>
-                      {{-- <input type="submit" name="" disabled value="Login Now"> --}}
-                    </div>
-          
-                  </form>
-                  <div class="login-signup">
-                    <span class="text">Not a member ?
-                      <a href="#logg" class="text signup-link" @@click.prevent.stop="link">Signup Now</a>
-                    </span>
-                    
-                  </div>
-                </div>
-          
-          
-          
-          <!-- signup form -->
-          
-                <div class="form signup">
-                  <span class="title">Registration</span>
-                  <form method="POST" action="{{ route('register') }}">
-                    @csrf
-                    <div class="input-field">
-                      <input type="text" name="username" id="name1" placeholder="Enter your names :" >
-                      <i class="bx bx-user icon"></i>
-                    </div>
-                    @if ($errors->any())
-                        @foreach ($errors->get('username') as $error)
-                            <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
-                        @endforeach
-                    @endif
-                    <div class="input-field">
-                      <input type="email" name="email_" placeholder="Enter your email :" >
-                      <i class="bx bx-envelope icon"></i>
-                    </div>
-                    @if ($errors->any())
-                        @foreach ($errors->get('email_') as $error)
-                            <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
-                        @endforeach
-                    @endif
-                    <div class="input-field">
-                      <input class="password" type="password" name="password_" placeholder="Create a Password :">
-                      <i class="bx bx-lock icon"></i>
-                      <i :class="icon" @@click.prevent.stop="showPassword"></i>
-                    </div>
-                    @if ($errors->any())
-                        @foreach ($errors->get('password_') as $error)
-                            <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
-                        @endforeach
-                    @endif
-                    <div class="input-field">
-                      <input class="password" type="password" name="password_confirmation" placeholder="Confirm your password :">
-                      <i class="bx bx-lock icon"></i>
-                    </div>
-                    @if ($errors->any())
-                        @foreach ($errors->get('password_confirmation') as $error)
-                            <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
-                        @endforeach
-                    @endif
-                    <div class="checkbox-text">
-                      <div class="checkbox-content">
-                        <input type="checkbox" name="" id="conditions">
-                        <label for="conditions" class="text">Agree with condition</label>
-                        
-                      </div>						
-                    </div>
-                    <div class="input-field button">
-                      <button type="submit" name="" class="btn-get-started scrollto col-12" >Signup Now</button>
-                      {{-- <input type="submit" value="Signup Now"> --}}
-                    </div>
-          
-                  </form>
-                  <div class="login-signup mb-4">
-                    <span class="text">Already a member ?
-                      <a href="#log" class="text login-link" @@click.prevent.stop="link">Login Now</a>
-                    </span>
-                    
-                  </div>
-                  
-                </div>
-              <!-- end sign in section -->
-  @endguest
+    @guest
+      <!-- login -->
+      @include('includes.login')
+    @endguest
             </div>
           </div>
 
@@ -368,145 +249,50 @@
         <div class="section-title">
           <h2>Categories & Courses</h2>
         </div>
+        
 
         <div class="row">
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="portfolio-flters">
               <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">Free</li>
+              @forelse ($categories as $category)
+                <li data-filter=".filter-{{ $category->cat_name }}">{{ $category->cat_name }}</li>
+              @empty
+                <span>Categories not yet published !</span>
+              @endforelse
+              {{-- <li data-filter=".filter-app">Free</li>
               <li data-filter=".filter-card">Software and Web</li>
-              <li data-filter=".filter-web">Others</li>
+              <li data-filter=".filter-web">Others</li> --}}
+              <a href="{{ route('categories.all') }}" class="btn-get-started scrollto fs-6">See more ...</a>
             </ul>
           </div>
         </div>
 
         <div class="row portfolio-container">
+          @forelse ($categories as $category)
+            @forelse ($category->lessons as $lesson)
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="{{ asset("/img/portfolio/portfolio-1.jpg") }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 1</h4>
-                <p>App</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset("/img/portfolio/portfolio-1.jpg") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $category->cat_name }}">
+                <div class="portfolio-wrap">
+                  <img src="{{ asset("/img/$lesson->les_img") }}" class="img-fluid" alt="">
+                  <div class="portfolio-info">
+                    <h4>{{ $lesson->les_name }}</h4>
+                    <p>{{ $category->cat_name }}</p>
+                    <div class="portfolio-links">
+                      <a href="{{ asset("/img/$lesson->les_img") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $lesson->les_name }}"><i class="bx bx-plus"></i></a>
+                      <a href="{{ route('course') }}" title="More Details"><i class="bx bx-link"></i></a>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            @empty
+              {{-- <div class="col-12 alert alert-warning">Courses not yet published !</div> --}}
+            @endforelse
+          @empty
+            <span>Category not yet published !</span>
+          @endforelse
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="{{ asset("/img/portfolio/portfolio-2.jpg") }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset("/img/portfolio/portfolio-2.jpg") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="{{ asset("/img/portfolio/portfolio-3.jpg") }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 2</h4>
-                <p>App</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset("/img/portfolio/portfolio-3.jpg") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="{{ asset("/img/portfolio/portfolio-4.jpg") }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Card 2</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset("/img/portfolio/portfolio-4.jpg") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="{{ asset("/img/portfolio/portfolio-5.jpg") }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Web 2</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset("/img/portfolio/portfolio-5.jpg") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="{{ asset("/img/portfolio/portfolio-6.jpg") }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 3</h4>
-                <p>App</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset("/img/portfolio/portfolio-6.jpg") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 3"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="{{ asset("/img/portfolio/portfolio-7.jpg") }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Card 1</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset("/img/portfolio/portfolio-7.jpg") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="{{ asset("/img/portfolio/portfolio-8.jpg") }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Card 3</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset("/img/portfolio/portfolio-8.jpg") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="{{ asset("/img/portfolio/portfolio-9.jpg") }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset("/img/portfolio/portfolio-9.jpg") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
+         
 
         </div>
 
@@ -778,6 +564,6 @@
 
   </main><!-- End #main -->
 
-@include('includes/footer') 
+@include('includes.footer') 
      
 @endsection

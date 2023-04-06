@@ -6,13 +6,13 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Categories & Courses</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
+          <li><a class="nav-link scrollto active" href="{{ route("home") }}#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="{{ route("home") }}#about">About</a></li>
+          <li><a class="nav-link scrollto" href="{{ route("home") }}#services">Services</a></li>
+          <li><a class="nav-link scrollto " href="{{ route("home") }}#portfolio">Categories & Courses</a></li>
+          <li><a class="nav-link scrollto" href="{{ route("home") }}#team">Team</a></li>
           
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="{{ route("home") }}#contact">Contact</a></li>
           @guest
             <li><a class="getstarted scrollto" data-bs-toggle="modal" data-bs-target="#login">Log in</a>
           @endguest
@@ -23,10 +23,6 @@
                 <li class="dropdown"><a href="#"><span>{{ Auth::user()->user_name }} 's profil</span> <i class="bi bi-chevron-right"></i></a>
                   <!-- <ul>
                     <li><a href="#">Deep Drop Down 1</a></li>
-                    <li><a href="#">Deep Drop Down 2</a></li>
-                    <li><a href="#">Deep Drop Down 3</a></li>
-                    <li><a href="#">Deep Drop Down 4</a></li>
-                    <li><a href="#">Deep Drop Down 5</a></li>
                   </ul> -->
                 </li>
                 <li><!-- Authentication -->
@@ -48,3 +44,5 @@
 
     </div>
   </header><!-- End Header -->
+
+  

@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     //
-    public function users(Type $var = null)
+    public function users()
     {
         # code...
         $users = User::all();
-        return view('index', $users);
+      
+        return view('users',[
+            'users' => $users,
+        ]);
     }
 }

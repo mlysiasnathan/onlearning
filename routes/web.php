@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\LessonCategory;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\TestPostController;
+use App\Http\Controllers\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +19,24 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $categories = LessonCategory::orderBy('created_at')->take(3)->get();
+    return view('index', [
+        'categories' => $categories,
+    ]);
 })->name('home');
-
-Route::get('/users', [UserController::class, 'users'])->name('users');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/categories',[CategoriesController::class, 'index'] )->name('categories.all');
+
+Route::get('/category/{name}',[CategoriesController::class, 'show'] )->name('category.show');
+
+Route::get('/category/php/php-basics',[CoursesController::class, 'index'] )->name('course');
+
+Route::get('/users', [UsersController::class, 'users'])->name('users');
+
+
 
 require __DIR__.'/auth.php';

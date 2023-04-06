@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Lesson;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class LessonCategory extends Model
@@ -17,5 +18,10 @@ class LessonCategory extends Model
         'cat_img',
         'cat_description',
     ];
+
+    public function lessons(): HasMany
+    {
+        return $this->hasMany(Lesson::class, 'cat_id', 'cat_id');
+    }
 
 }
