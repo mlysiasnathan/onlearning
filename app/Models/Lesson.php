@@ -7,6 +7,7 @@ use App\Models\LessonPdf;
 use App\Models\LessonVideo;
 use App\Models\LessonCategory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Lesson extends Model

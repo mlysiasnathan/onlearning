@@ -67,86 +67,61 @@
                     <h6 class="mt-3" style="font-size: 11px">Updated on : <strong style="font-size: 11px; font-style:italic">{{ $course->updated_at->format('M Y') }}</strong></h6>
                 </div>
               </div>
+
+              {{-- Lesson's documentations --}}
+                @if ($course->lesson_pdfs->count() > 0)
+
+                    <h3 class="mt-3">Related files to download</h3>
+                    <div class="row">
+
+                      @foreach ($course->lesson_pdfs as $document)
+                        <button class="btn btn-outline-primary col-lg mt-1 m-2  rounded" type="button">Doc {{ $document->pdf_id }}</button>
+                      @endforeach
+                      
+                    </div>
+
+                @else
+
+                    <h3 class="mt-3">No additionnal Related files for this course</h3>
+                  
+                @endif
               {{-- Lesson's Chapters --}}
-              <h3 class="mt-3">Related files to download</h3>
-              <div class="row">
-                <button class="btn btn-outline-primary col-lg mt-1 m-2  rounded" type="button">Doc 1</button>
-                <button class="btn btn-outline-primary col-lg mt-1 m-2  rounded" type="button">Doc 1</button>
-              </div>
+              @if ($course->lesson_videos->count() > 0)
 
-              <h3 class="mt-3">Tabes of contents & Lessons' videos</h3>
+                <h3 class="mt-3">Tabes of contents & Lessons' videos</h3>
 
-              <div class="accordion mt-3" id="accordionExample">
-                <div class="accordion-item" style="border-radius: 13px">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed"  style="border-radius: 13px" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne">
-                      Introduction
-                    </button>
-                  </h2>
-                  <div id="collapseOne1" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body text-small">
-                      <strong>This is the first item's accordion body.</strong>  
-                      You can modify any of this with custom CSS or overriding our default variables. 
-                      It's also worth noting that just about any HTML can go within 
-                      the, though the transition does limit overflow.
-                      
+                @foreach ($course->lesson_videos as $video)
+
+                  <div class="accordion mt-3" id="accordionExample">
+                    <div class="accordion-item" style="border-radius: 13px">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed"  style="border-radius: 13px" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ $video->vid_id }}" aria-expanded="true" aria-controls="collapseOne">
+                          {{ $video->vid_name }}
+                        </button>
+                      </h2>
+                      <div id="collapseOne{{ $video->vid_id }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body text-small">
+                          <div class="embed-responsive embed-responsive-16y9">
+                            <iframe src="{{ $video->vid_file }}" frameborder="0" class="embed-responsive-item" allowfullscreen style="border-radius: 13px"></iframe>
+                          </div>
+                          <h6 class="text-samll">{{ $video->vid_file }}</h6>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
 
-              <div class="accordion mt-3" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Functions
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body text-small">
-                      <strong>This is the first item's accordion body.</strong>  
-                      You can modify any of this with custom CSS or overriding our default variables. 
-                      It's also worth noting that just about any HTML can go within 
-                      the, though the transition does limit overflow.
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
+                @endforeach
 
-              <div class="accordion mt-3" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Loops
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body text-small">
-                      <strong>This is the first item's accordion body.</strong>  
-                      You can modify any of this with custom CSS or overriding our default variables. 
-                      It's also worth noting that just about any HTML can go within 
-                      the, though the transition does limit overflow.
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-  
-            {{-- @empty
-  
-              <div class="alert alert-secondary">No category avalaibles</div>
-              
-            @endforelse --}}
-              
+              @else
+
+                  <h3 class="mt-3">No video deployed yet for this course</h3>
+                
+              @endif
+
           </div>
-  
         </div>
       </section><!-- End Lessons Section -->
-    
-
-
-
+      
   </main><!-- End #main -->
 
 @include('includes.footer') 

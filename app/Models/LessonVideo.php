@@ -13,5 +13,6 @@ class LessonVideo extends Model
 
     protected $fillable = [
         'vid_file',
+        'vid_name',
     ];
 }
