@@ -9,7 +9,7 @@
           <li><a class="nav-link scrollto active" href="{{ route("home") }}#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="{{ route("home") }}#about">About</a></li>
           <li><a class="nav-link scrollto" href="{{ route("home") }}#services">Services</a></li>
-          <li><a class="nav-link scrollto " href="{{ route("home") }}#portfolio">Categories & Courses</a></li>
+          <li><a class="nav-link scrollto" href="{{ route("home") }}#portfolio">Categories & Courses</a></li>
           <li><a class="nav-link scrollto" href="{{ route("home") }}#team">Team</a></li>
           
           <li><a class="nav-link scrollto" href="{{ route("home") }}#contact">Contact</a></li>

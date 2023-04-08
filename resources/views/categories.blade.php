@@ -39,18 +39,23 @@
     <section id="why-us" class="why-us-cat">
       <div class="container">
 
+        <a href="{{ route('category.create') }}" class="btn btn-primary mt-3">New</a>
+
         <div class="row mt-4">
 
           @forelse ($categories as $category)
 
             <div class="col-lg-4 mt-lg-3 mt-4">
               <a href="{{ route('category.show', ['name' => $category->cat_name]) }}">
-                <div class="box" style="background-image: url({{ asset("/img/$category->cat_img") }});background-size: cover;background-position: center;background-repeat: no-repeat;">
+                <div class="box" style="background-image: url({{ Storage::url($category->cat_img) }});background-size: cover;background-position: center;background-repeat: no-repeat;">
                   <h4 class="text-uppercase">{{ $category->cat_name }}</h4>
                   <p>{{ $category->cat_description }}</p>
                   <h6 class="mt-3" style="font-size: 11px">Created: <strong style="font-size: 11px; font-style:italic">{{ $category->created_at->format('d/m/Y') }}</strong></h6>
                 </div>
               </a>
+              <a href="{{ route('category.delete',['id' => $category->cat_id]) }}" class="btn btn-outline-danger mt-3">DEL</a>
+              <a href="{{ route('category.update',['id' => $category->cat_id]) }}" class="btn btn-outline-warning mt-3">EDT</a>
+
             </div>
 
           @empty

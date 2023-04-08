@@ -20,7 +20,10 @@ class Lesson extends Model
         'les_name',
         'les_price',
         'les_img',
+        'cat_id',
         'les_content',
+        'created_at',
+        'updated_at',
     ];
 
     /**

@@ -17,6 +17,8 @@ class LessonCategory extends Model
         'cat_name',
         'cat_img',
         'cat_description',
+        'created_at',
+        'updated_at',
     ];
 
     public function lessons(): HasMany
