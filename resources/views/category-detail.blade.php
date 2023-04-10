@@ -39,7 +39,7 @@
     
 
     <!-- ======= Category details Section ======= -->
-    <section id="why-us" class="why-us-cat">
+    <section id="portfolio" class="why-us-cat">
       <div class="container">
         
         <a href="{{ route('course.create',['cat_id' => $category->cat_id]) }}" class="btn btn-primary mt-3">New</a>
@@ -66,14 +66,14 @@
                         You can modify any of this with custom CSS or 
                         <div class="row">
                           <button class="btn btn-primary btn-small mt-1">Purchase</button>
-                          <a href="{{ route('course.show', ['name' => $category->cat_name, 'course_name' => $lesson->les_name]) }}" class="btn btn-primary btn-small mt-1">Get Started</a>
+                          <a href="{{ route('course.show', ['cat_name' => $category->cat_name, 'les_name' => $lesson->les_name]) }}" class="btn btn-primary btn-small mt-1">Get Started</a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <a href="{{ route('course.delete',['id' => $lesson->les_id]) }}" class="btn btn-outline-danger mt-3">DEL</a>
-                <a href="{{ route('course.update',['id' => $lesson->les_id , 'cat_id' => $category->cat_id]) }}" class="btn btn-outline-warning mt-3">EDT</a>
+                <a href="{{ route('course.delete',['les_id' => $lesson->les_id]) }}" class="btn btn-outline-danger mt-3" onclick="return confirm('Do you want to delete this course ?')">DEL</a>
+                <a href="{{ route('course.update',['les_id' => $lesson->les_id , 'cat_id' => $category->cat_id]) }}" class="btn btn-outline-warning mt-3">EDT</a>
 
               </div>
               <h6 class="mt-3 ml-3" style="font-size: 11px">Created: <strong class="text-primary" style="font-size: 11px; font-style:italic">{{ $lesson->created_at->format('d M Y \a\t H:i') }}</strong></h6>

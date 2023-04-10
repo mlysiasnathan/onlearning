@@ -38,7 +38,7 @@
                       <a href="#" class="text">Forget password ?</a>
                       
                     </div>
-                    <div class="input-field ">
+                    <div class="input-field">
                       <button type="submit" name="" :disabled="muted" class="btn-get-started col-12" >Login Now</button>
                     </div>
           

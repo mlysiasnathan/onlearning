@@ -1702,3 +1702,44 @@ section {
     color: #054eeb;
   }
 }
+
+/* my buttons */
+.btn-get-started, .btn-get-quote {
+  font-family: comfortaa;
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  padding: 8px 30px 9px 30px;
+  margin-bottom: 15px;
+  border-radius: 3px;
+  transition: 0.5s;
+  border-radius: 50px;
+}
+.btn-get-started {
+  background: #5a5af3;
+  color: #fff;
+  border: 2px solid #5a5af3;
+  margin-right: 10px;
+}
+.btn-get-started:hover {
+  background: #7272f5;
+  border-color: #7272f5;
+}
+.btn-get-quote {
+  color: #5a5af3;
+  border: 2px solid #5a5af3;
+}
+.btn-get-quote:hover {
+  background: #5a5af3;
+  color: #fff;
+}
+@media (max-width: 575px) {
+
+  .btn-get-started, .btn-get-quote {
+    padding-left: 18px;
+    padding-right: 18px;
+    font-size: 14px;
+  }
+}
+

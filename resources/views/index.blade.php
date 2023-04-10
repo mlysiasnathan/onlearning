@@ -260,10 +260,7 @@
               @empty
                 <span>Categories not yet published !</span>
               @endforelse
-              {{-- <li data-filter=".filter-app">Free</li>
-              <li data-filter=".filter-card">Software and Web</li>
-              <li data-filter=".filter-web">Others</li> --}}
-              <a href="{{ route('categories.all') }}" class="btn-get-started scrollto fs-6">See more ...</a>
+              <a href="{{ route('categories.all') }}" class="scrollto fs-6">See more ...</a>
             </ul>
           </div>
         </div>
@@ -275,13 +272,13 @@
 
               <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $category->cat_name }}">
                 <div class="portfolio-wrap">
-                  <img src="{{ asset("/img/$lesson->les_img") }}" class="img-fluid" alt="">
+                  <img src="{{ Storage::url($lesson->les_img) }}" class="img-fluid" alt="">
                   <div class="portfolio-info">
                     <h4>{{ $lesson->les_name }}</h4>
                     <p>{{ $category->cat_name }}</p>
                     <div class="portfolio-links">
-                      <a href="{{ asset("/img/$lesson->les_img") }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $lesson->les_name }}"><i class="bx bx-plus"></i></a>
-                      <a href="{{ route('course.show', ['name' => $category->cat_name, 'course_name' => $lesson->les_name]) }}" title="More Details"><i class="bx bx-link"></i></a>
+                      <a href="{{ Storage::url($lesson->les_img) }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $lesson->les_name }}"><i class="bx bx-image"></i></a>
+                      <a href="{{ route('course.show', ['cat_name' => $category->cat_name, 'les_name' => $lesson->les_name]) }}" title="Go To {{ $lesson->les_name }}"><i class="bx bx-link"></i></a>
                     </div>
                   </div>
                 </div>

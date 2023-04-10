@@ -16,9 +16,9 @@ class CategoriesController extends Controller
         ]);
     }
 
-    public function show(string $name)
+    public function show(string $cat_name)
     {
-        $category = LessonCategory::where('cat_name',$name)->firstOrFail();
+        $category = LessonCategory::where('cat_name', $cat_name)->firstOrFail();
         return view('category-detail', [
             'category' => $category,
         ]);
@@ -26,34 +26,63 @@ class CategoriesController extends Controller
 
     public function create()
     {
-        # code...
         return view('add_cat');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, ?int $cat_id = null)
     {
-        $request->validate([
-            'name' => ['required' , 'min:2' , 'unique:lesson_categories,cat_name'],
-            'description' => ['required',],
-            'image' => ['required',],
-        ]);
-        $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
-        $image_path = $request->image->storeAs('img/categories', $filename, 'public');
-        
-        LessonCategory::create([
-            'cat_name' => $request->name,
-            'cat_description' => $request->description,
-            'cat_img' => $image_path,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        if ($request->routeIs('category.update.store')) {
 
-        dd('cat created');
+            $request->validate([
+                'name' => ['required' , 'min:2'],
+                'description' => ['required',],
+                'image' => ['required',],
+            ]);
+
+            $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
+            $image_path = $request->image->storeAs('img/categories', $filename, 'public');
+
+            $category = LessonCategory::findOrFail((int)$cat_id);
+            $category->update([
+                'cat_name' => $request->name,
+                'cat_description' => $request->description,
+                'cat_img' => $image_path,
+                'updated_at' => now(),
+            ]);
+            dd('category updated');
+
+        } else {
+
+            $request->validate([
+                'name' => ['required' , 'min:2' , 'unique:lesson_categories,cat_name'],
+                'description' => ['required',],
+                'image' => ['required',],
+            ]);
+            $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
+            $image_path = $request->image->storeAs('img/categories', $filename, 'public');
+            
+            LessonCategory::create([
+                'cat_name' => $request->name,
+                'cat_description' => $request->description,
+                'cat_img' => $image_path,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+    
+            dd('category created');
+        }
+    
     }
 
-    public function delete(int $id)
+    public function update(int $cat_id)
     {
-        LessonCategory::findOrFail($id)->delete();
+        $category = LessonCategory::findOrFail($cat_id);
+        return view('add_cat' , compact('category'));
+    }
+
+    public function delete(int $cat_id)
+    {
+        LessonCategory::findOrFail($cat_id)->delete();
         dd('Category deleted !');
     }
 }

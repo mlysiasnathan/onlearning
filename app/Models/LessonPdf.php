@@ -13,5 +13,6 @@ class LessonPdf extends Model
 
     protected $fillable = [
         'pdf_file',
+        'les_id'
     ];
 }

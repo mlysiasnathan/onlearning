@@ -4,10 +4,8 @@
     <h1>Add course</h1>
 @endif
 
-<form action="<?= isset($course) ? route('course.update.store') : route('course.store') ?>" method="POST" enctype="multipart/form-data">
+<form action="{{ isset($course) ? route('course.update.store' , ['cat_id' => $category->cat_id, 'les_id' => $course->les_id]) : route('course.store' , ['cat_id' => $category]) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm('Are you sure ?')">
     @csrf
-    <input type="hidden" name="category" value="{{ isset($course) ? $category->cat_id : $category }}">
-    <input type="hidden" name="course" value="{{ isset($course) ? $course->les_id : '' }}">
 
     @if ($errors->any())
         <h1 style="color: red">Something went wrong</h1>
@@ -44,6 +42,6 @@
     @endif
     <br/><br/>
 
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary">{{ isset($course) ? 'Update' : 'Create' }}</button>
 
 </form>
