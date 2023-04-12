@@ -24,14 +24,11 @@ use App\Http\Controllers\CategoriesController;
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/', function () {
-    // $categories = LessonCategory::orderBy('created_at', 'desc')->take(3)->get();
-    $categories = LessonCategory::orderBy('created_at', 'desc')->get();
+//--Home's Routes
 
-    return view('index', [
-        'categories' => $categories,
-    ]);
-})->name('home');
+// $categories = LessonCategory::orderBy('created_at', 'desc')->take(3)->get();
+
+Route::get('/', function () { return view('index');})->name('home');
 
 //--Categories' Routes
 

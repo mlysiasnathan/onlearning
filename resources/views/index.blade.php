@@ -7,24 +7,19 @@
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
-
     <div class="container">
-      
       <div class="row">
-        
         <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          
-            
-          
           <h1>Get the skills you need for a tech career in just 3 months.</h1>
           <div id="message-active">
+
             @if ($errors->any())
               @foreach ($errors->all() as $error)
                 <vue-alert type="alert-danger" message="{{ $error }}" :start="8"></vue-alert>
               @endforeach
             @endif
+
           </div>
-        
           <ul>
             <li><i class="ri-check-line"></i> Learn at your own pace with hands-on courses.</li>
             <li><i class="ri-check-line"></i> 70+ programs for all areas of your life</li>
@@ -35,20 +30,18 @@
             <a href="" class="btn-get-quote">Get apps</a>
           </div>
         </div>
-        
         <div class="col-lg-6 order-1 order-lg-2 hero-img">
           <img src="{{ asset("/img/hero-img.png") }}" class="img-fluid" alt="" style="height: 409px; width: 236px">
         </div>
-        
       </div>
     </div>
+
     @guest
       <!-- login -->
       @include('includes.login')
     @endguest
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -60,9 +53,7 @@
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
       <div class="container">
-
         <div class="row content">
-        
           <div class="col-lg-6 mt-1">
             <h2>Start learning from ZERO to HERO</h2>
             <h3>Expand your curriculum through blended learning.Learn new knowledge and skills in a variety of ways</h3>
@@ -82,7 +73,6 @@
             </p>
           </div>
         </div>
-
       </div>
     </section><!-- End About Section -->
 
@@ -93,9 +83,7 @@
           <h2>Why Us ?</h2>
           <p>From introductory to advanced, you’ll find high-quality courses across every subject, designed and taught by academic and industry experts.</p>
         </div>
-
         <div class="row">
-
           <div class="col-lg-4">
             <div class="box">
               <span>01</span>
@@ -103,7 +91,6 @@
               <p>Propel your career, get a degree, or expand your knowledge at any level.</p>
             </div>
           </div>
-
           <div class="col-lg-4 mt-4 mt-lg-0">
             <div class="box">
               <span>02</span>
@@ -111,7 +98,6 @@
               <p>Upskill employees and build a culture of learning.</p>
             </div>
           </div>
-
           <div class="col-lg-4 mt-4 mt-lg-0">
             <div class="box">
               <span>03</span>
@@ -119,26 +105,21 @@
               <p>Expand your curriculum through blended learning.</p>
             </div>
           </div>
-
         </div>
-
       </div>
     </section><!-- End Why Us Section -->
 
     <!-- ======= Counts Section ======= -->
     <section id="counts" class="counts section-bg">
       <div class="container">
-
         <div class="row">
-
           <div class="col-lg-3 col-md-6">
             <div class="count-box">
               <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="{{ App\Models\User::all()->count() }}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Active Students</p>
             </div>
           </div>
-
           <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
             <div class="count-box">
               <i class="bi bi-journal-richtext"></i>
@@ -146,7 +127,6 @@
               <p>Questions for test skills</p>
             </div>
           </div>
-
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
               <i class="bi bi-coin"></i>
@@ -154,29 +134,24 @@
               <p>Paid courses</p>
             </div>
           </div>
-
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
               <i class="bi bi-book"></i>
-              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="{{ App\Models\Lesson::all()->count() }}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Courses provided</p>
             </div>
           </div>
-
         </div>
-
       </div>
     </section><!-- End Counts Section -->
 
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
       <div class="container">
-
         <div class="section-title">
           <h2>Services</h2>
           <p>Expand your knowledge of environmental issues and discover how you can make a difference. Explore our most popular services that our system provides.</p>
         </div>
-
         <div class="row">
           <div class="content col-xl-5 d-flex flex-column justify-content-center">
             <img src="{{ asset("/img/services.png") }}" class="img-fluid" alt="">
@@ -184,6 +159,7 @@
           <div class="col-xl-7">
             <div class="icon-boxes d-flex flex-column justify-content-center">
               <div class="row">
+                
                 <div class="col-lg-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                   <div class="icon-box iconbox-blue">
                     <div class="icon">
@@ -250,12 +226,11 @@
           <h2>Categories & Courses</h2>
         </div>
         
-
         <div class="row">
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="portfolio-flters">
               <li data-filter="*" class="filter-active">All</li>
-              @forelse ($categories as $category)
+              @forelse ( App\Models\LessonCategory::orderBy('created_at', 'desc')->get() as $category)
                 <li data-filter=".filter-{{ $category->cat_name }}">{{ $category->cat_name }}</li>
               @empty
                 <span>Categories not yet published !</span>
@@ -266,7 +241,7 @@
         </div>
 
         <div class="row portfolio-container">
-          @forelse ($categories as $category)
+          @forelse (App\Models\LessonCategory::orderBy('created_at', 'desc')->get() as $category)
           
             @forelse ($category->lessons as $lesson)
 
@@ -286,15 +261,11 @@
             @empty
               {{-- <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $category->cat_name }}">Courses not yet published !</div> --}}
             @endforelse
-            
           @empty
             <span>Category not yet published !</span>
           @endforelse
-
-         
-
+        
         </div>
-
       </div>
     </section><!-- End Portfolio Section -->
 

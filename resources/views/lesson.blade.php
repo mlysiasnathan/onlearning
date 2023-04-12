@@ -45,7 +45,6 @@
     
               <div class="col-lg-12">
                 <div class="box" style="background-image: url({{ Storage::url($course->les_img) }});background-size: cover;background-position: center;background-repeat: no-repeat;">
-
                     <div class="accordion mt-1" id="accordionExample">
                         <div class="accordion-item" style="border-radius: 13px">
                           <h2 class="accordion-header" id="headingOne">
@@ -61,7 +60,7 @@
                         </div>
                     </div>
 
-                    <h6 class="mt-3" style="font-size: 11px">Updated on : <strong style="font-size: 11px; font-style:italic">{{ $course->updated_at->format('M Y') }}</strong></h6>
+                    <h6 class="mt-3" style="font-size: 11px"><i class="bi bi-coin bx-burst"></i><i class="bi bi-check bx-burst"></i> Updated on : <strong style="font-size: 11px; font-style:italic">{{ $course->updated_at->format('M Y') }}</strong></h6>
                 </div>
               </div>
 
@@ -75,7 +74,7 @@
                     <div class="input-field mx-3">
                       <input type="file" name="document" required>
                     </div>
-                    <button type="submit" class="btn-get-started col-12 mt-3">Add Doc</button>
+                    <button type="submit" class="btn-get-started col-12 mt-3"><i class="bx bx-book"></i>  Add Doc</button>
                       @if ($errors->any())
                           @foreach ($errors->get('document') as $error)
                               <h5 style="color: red">{{ $error }}</h5>
@@ -105,7 +104,7 @@
                               <h5 style="color: red">{{ $error }}</h5>
                           @endforeach
                       @endif
-                    <button type="submit" class="btn-get-started col-12 mt-2">Add Video</button>
+                    <button type="submit" class="btn-get-started col-12 mt-2"><i class="bx bx-video"></i>  Add Video</button>
                   </form>
                 </div>
               </div>
@@ -116,8 +115,12 @@
                     <div class="row">
 
                       @foreach ($course->lesson_pdfs as $document)
-                        <a href="{{ route('doc.download' , ['pdf_id' => $document->pdf_id]) }}" class="btn-get-quote col-lg mt-1 m-2" onclick="return confirm('DOWNLOAD Document : : Do you want to download this document ?')">Doc #{{ $document->pdf_id }}</a>
-                        <a href="{{ route('doc.delete', ['pdf_id' => $document->pdf_id]) }}" class="col-1 text-small text-danger" onclick="return confirm('DELETE Document : : Are you sure ?')">DEL</a>
+                        <a href="{{ route('doc.download' , ['pdf_id' => $document->pdf_id]) }}" class="btn-get-quote col-lg mt-1 m-1" onclick="return confirm('DOWNLOAD Document : : Do you want to download this document ?')">
+                          <i class="bx bx-download bx-fade-down"></i> - <i class="bx bx-book"></i> {{ $document->pdf_id }}
+                        </a>
+                        <a href="{{ route('doc.delete', ['pdf_id' => $document->pdf_id]) }}" class="col-1 text-small mt-1 text-danger" onclick="return confirm('DELETE Document : : Are you sure ?')">
+                          <i class="bx bx-trash bx-sm bx-border-circle bx-burst"></i>
+                        </a>
                       @endforeach
                       
                     </div>
@@ -139,8 +142,8 @@
                   <div class="accordion mt-3" id="accordionExample">
                     <div class="accordion-item" style="border-radius: 13px">
                       <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button collapsed"  style="border-radius: 13px" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ $video->vid_id }}" aria-expanded="true" aria-controls="collapseOne">
-                          {{ $video->vid_name }}
+                        <button class="accordion-button collapsed text-primary"  style="border-radius: 13px" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ $video->vid_id }}" aria-expanded="true" aria-controls="collapseOne">
+                          <i class="bx bx-play bx-border-circle bx-tada"> </i>{{ $video->vid_name }}
                         </button>
                       </h2>
                       <div id="collapseOne{{ $video->vid_id }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -171,8 +174,8 @@
                                   @endforeach
                               @endif
                               <br/><br/>
-                            <button type="submit" class="btn-get-started col-11">EDT</button>
-                            <a href="{{ route('video.delete', ['vid_id' => $video->vid_id]) }}" class="btn btn-danger" onclick="return confirm('DELETE Video : : Are you sure ?')">DEL</a>
+                            <button type="submit" class="btn-get-started col-10"><i class="bx bx-pencil"></i></button>
+                            <a href="{{ route('video.delete', ['vid_id' => $video->vid_id]) }}" class="text-danger col-1" onclick="return confirm('DELETE Video : : Are you sure ?')"><i class="bx bx-trash bx-border-circle bx-burst"></i></a>
                           </form>
                         </div>
                       </div>

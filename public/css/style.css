@@ -1711,6 +1711,7 @@ section {
   letter-spacing: 0.5px;
   display: inline-block;
   padding: 8px 30px 9px 30px;
+  text-align: center;
   margin-bottom: 15px;
   border-radius: 3px;
   transition: 0.5s;
@@ -1725,6 +1726,7 @@ section {
 .btn-get-started:hover {
   background: #7272f5;
   border-color: #7272f5;
+  color: white;
 }
 .btn-get-quote {
   color: #5a5af3;
@@ -1737,6 +1739,46 @@ section {
 @media (max-width: 575px) {
 
   .btn-get-started, .btn-get-quote {
+    padding-left: 18px;
+    padding-right: 18px;
+    font-size: 14px;
+  }
+}
+
+.btn-get-started-red, .btn-get-quote-red {
+  font-family: comfortaa;
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  padding: 8px 30px 9px 30px;
+  text-align: center;
+  margin-bottom: 15px;
+  border-radius: 3px;
+  transition: 0.5s;
+  border-radius: 50px;
+}
+.btn-get-started-red {
+  background: #f35a5a;
+  color: #fff;
+  border: 2px solid #f35a5a;
+  margin-right: 10px;
+}
+.btn-get-started-red:hover {
+  background: #f57272;
+  border-color: #f57272;
+}
+.btn-get-quote-red {
+  color: #f35a5a;
+  border: 2px solid #f35a5a;
+}
+.btn-get-quote-red:hover {
+  background: #f35a5a;
+  color: #fff;
+}
+@media (max-width: 575px) {
+
+  .btn-get-started-red, .btn-get-quote-red {
     padding-left: 18px;
     padding-right: 18px;
     font-size: 14px;
