@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Admin;
 use App\Models\Results;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -52,5 +53,15 @@ class User extends Authenticatable
     public function results(): HasMany
     {
         return $this->hasMany(Results::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Get the admin associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function admin(): HasOne
+    {
+        return $this->hasOne(Admin::class, 'user_id', 'user_id');
     }
 }

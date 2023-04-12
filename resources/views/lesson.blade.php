@@ -46,9 +46,9 @@
               <div class="col-lg-12">
                 <div class="box" style="background-image: url({{ Storage::url($course->les_img) }});background-size: cover;background-position: center;background-repeat: no-repeat;">
                     <div class="accordion mt-1" id="accordionExample">
-                        <div class="accordion-item" style="border-radius: 13px">
+                        <div class="accordion-item border-primary" style="border-radius: 25px">
                           <h2 class="accordion-header" id="headingOne">
-                              <button class="accordion-button collapsed" style="border-radius: 13px" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              <button class="accordion-button collapsed" style="border-radius: 25px" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                   Course's descriptions
                               </button>
                           </h2>
@@ -60,56 +60,64 @@
                         </div>
                     </div>
 
-                    <h6 class="mt-3" style="font-size: 11px"><i class="bi bi-coin bx-burst"></i><i class="bi bi-check bx-burst"></i> Updated on : <strong style="font-size: 11px; font-style:italic">{{ $course->updated_at->format('M Y') }}</strong></h6>
+                    <h6 class="mt-3" style="font-size: 11px">
+                      @auth
+                        <i class="bi bi-coin bx-burst"></i><i class="bi bi-check bx-burst"> </i>
+                      @endauth
+                      Updated on : <strong style="font-size: 11px; font-style:italic">{{ $course->updated_at->format('M Y') }}</strong>
+                    </h6>
                 </div>
               </div>
 
               {{-- Lesson's documentations --}}
-              <div class="row">
-                <div class="col-lg-6 py-5">
+              @can('isAdmin')
 
-                  <form class="form-control" action="{{  route('doc.create', ['les_id' => $course->les_id]) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm('CREATE Doc : : Are you sure ?')">
-                    @csrf
-                    <label for="">Insert a documentation :</label>
-                    <div class="input-field mx-3">
-                      <input type="file" name="document" required>
-                    </div>
-                    <button type="submit" class="btn-get-started col-12 mt-3"><i class="bx bx-book"></i>  Add Doc</button>
-                      @if ($errors->any())
-                          @foreach ($errors->get('document') as $error)
-                              <h5 style="color: red">{{ $error }}</h5>
-                          @endforeach
-                      @endif
-                  </form>
+                <div class="row">
+                  <div class="col-lg-6 py-5">
+
+                    <form class="form-control" action="{{  route('doc.create', ['les_id' => $course->les_id]) }}" method="POST" enctype="multipart/form-data"  style="border-radius: 25px" onsubmit="return confirm('CREATE Doc : : Are you sure ?')">
+                      @csrf
+                      <label for="">Insert a documentation :</label>
+                      <div class="input-field mx-3">
+                        <input type="file" name="document" required>
+                      </div>
+                      <button type="submit" class="btn-get-started col-12 mt-3"><i class="bx bx-book"></i>  Add Doc</button>
+                        @if ($errors->any())
+                            @foreach ($errors->get('document') as $error)
+                                <h5 style="color: red">{{ $error }}</h5>
+                            @endforeach
+                        @endif
+                    </form>
+                  </div>
+
+                  <div class="col-lg-6 py-1">
+
+                    <form class="form-control" action="{{  route('video.create', ['les_id' => $course->les_id]) }}" method="POST" enctype="multipart/form-data" style="border-radius: 25px" onsubmit="return confirm('CREATE Video : : Are you sure ?')">
+                      @csrf
+                      <div class="input-field mx-3 mt-3">
+                        <input type="text" placeholder="New video name :" name="video_name" required>
+                      </div>
+                        @if ($errors->any())
+                            @foreach ($errors->get('video_name') as $error)
+                                <h5 style="color: red">{{ $error }}</h5>
+                            @endforeach
+                        @endif
+                        <br/><br/>
+                      <div class="input-field mx-3">
+                        <input type="text" placeholder="New video youtube link :" name="video_link" required>
+                      </div>
+                        @if ($errors->any())
+                            @foreach ($errors->get('video_link') as $error)
+                                <h5 style="color: red">{{ $error }}</h5>
+                            @endforeach
+                        @endif
+                      <button type="submit" class="btn-get-started col-12 mt-2"><i class="bx bx-video"></i>  Add Video</button>
+                    </form>
+                  </div>
                 </div>
+              @endcan
 
-                <div class="col-lg-6 py-1">
-
-                  <form class="form-control" action="{{  route('video.create', ['les_id' => $course->les_id]) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm('CREATE Video : : Are you sure ?')">
-                    @csrf
-                    <div class="input-field mx-3 mt-3">
-                      <input type="text" placeholder="New video name :" name="video_name" required>
-                    </div>
-                      @if ($errors->any())
-                          @foreach ($errors->get('video_name') as $error)
-                              <h5 style="color: red">{{ $error }}</h5>
-                          @endforeach
-                      @endif
-                      <br/><br/>
-                    <div class="input-field mx-3">
-                      <input type="text" placeholder="New video youtube link :" name="video_link" required>
-                    </div>
-                      @if ($errors->any())
-                          @foreach ($errors->get('video_link') as $error)
-                              <h5 style="color: red">{{ $error }}</h5>
-                          @endforeach
-                      @endif
-                    <button type="submit" class="btn-get-started col-12 mt-2"><i class="bx bx-video"></i>  Add Video</button>
-                  </form>
-                </div>
-              </div>
-
-                @if ($course->lesson_pdfs->count() > 0)
+              @if ($course->lesson_pdfs->count() > 0)
 
                     <h3 class="mt-3">Related files to download</h3>
                     <div class="row">
@@ -118,18 +126,19 @@
                         <a href="{{ route('doc.download' , ['pdf_id' => $document->pdf_id]) }}" class="btn-get-quote col-lg mt-1 m-1" onclick="return confirm('DOWNLOAD Document : : Do you want to download this document ?')">
                           <i class="bx bx-download bx-fade-down"></i> - <i class="bx bx-book"></i> {{ $document->pdf_id }}
                         </a>
-                        <a href="{{ route('doc.delete', ['pdf_id' => $document->pdf_id]) }}" class="col-1 text-small mt-1 text-danger" onclick="return confirm('DELETE Document : : Are you sure ?')">
-                          <i class="bx bx-trash bx-sm bx-border-circle bx-burst"></i>
-                        </a>
+                        
+                        @can('isAdmin')
+                          <a href="{{ route('doc.delete', ['pdf_id' => $document->pdf_id]) }}" class="col-1 text-small mt-1 text-danger" onclick="return confirm('DELETE Document : : Are you sure ?')">
+                            <i class="bx bx-trash bx-sm bx-border-circle bx-burst"></i>
+                          </a>
+                        @endcan
                       @endforeach
                       
                     </div>
 
-                @else
-
-                    <h3 class="mt-3">No additionnal Related files for this course</h3>
-                  
-                @endif
+              @else
+                <h3 class="mt-3">No additionnal Related files for this course</h3>
+              @endif
               {{-- Lesson's Chapters --}}
 
               
@@ -154,6 +163,7 @@
                           <h6 class="text-samll">{{ $video->vid_file }}</h6>
 
 {{-- Update form --}}
+                        @can('isAdmin')
                           <form class="form-control" action="{{  route('video.update', ['les_id' => $course->les_id , 'vid_id' => $video->vid_id]) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm('UPDATE Video : : Are you sure to edit this chapter ?')">
                             @csrf
                             <div class="input-field mx-3 mt-3">
@@ -177,6 +187,7 @@
                             <button type="submit" class="btn-get-started col-10"><i class="bx bx-pencil"></i></button>
                             <a href="{{ route('video.delete', ['vid_id' => $video->vid_id]) }}" class="text-danger col-1" onclick="return confirm('DELETE Video : : Are you sure ?')"><i class="bx bx-trash bx-border-circle bx-burst"></i></a>
                           </form>
+                        @endcan
                         </div>
                       </div>
                     </div>

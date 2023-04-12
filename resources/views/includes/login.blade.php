@@ -9,7 +9,7 @@
                   <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="input-field">
-                      <input type="email" name="email" placeholder="Enter your email :" v-model="email" required>
+                      <input type="email" value="@test.com" name="email" placeholder="Enter your email :" {{-- v-model="email" --}} required>
                       <i class="bx bx-envelope icon"></i>
                     </div>
                     <h6 class="mt-1 text-danger " style="font-size: 13px" v-if="emailError">@{{ emailError }}</h6>
@@ -60,42 +60,41 @@
                   <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="input-field">
-                      <input type="text" name="username" id="name1" placeholder="Enter your names :" >
+                      <input type="text" name="username_reg" id="name1" placeholder="Enter your names :" >
                       <i class="bx bx-user icon"></i>
                     </div>
-                    @if ($errors->any())
-                        @foreach ($errors->get('username') as $error)
+                    @error('username_reg')
+                      <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $message }}</h5>
+                    @enderror 
+                    {{-- @if($errors->any())
+                        @foreach ($errors->get('username_reg') as $error)
                             <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
                         @endforeach
-                    @endif
+                    @endif --}}
                     <div class="input-field">
-                      <input type="email" name="email_" placeholder="Enter your email :" >
+                      <input type="email" name="email_reg" value="@test.com" placeholder="Enter your email :" >
                       <i class="bx bx-envelope icon"></i>
                     </div>
-                    @if ($errors->any())
-                        @foreach ($errors->get('email_') as $error)
-                            <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
-                        @endforeach
-                    @endif
+                    @error('email_reg')
+                      <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $message }}</h5>
+                    @enderror 
                     <div class="input-field">
-                      <input class="password" type="password" name="password_" placeholder="Create a Password :">
+                      <input class="password" type="password" name="password_reg" placeholder="Create a Password :">
                       <i class="bx bx-lock icon"></i>
                       <i :class="icon" @@click.prevent.stop="showPassword"></i>
                     </div>
-                    @if ($errors->any())
-                        @foreach ($errors->get('password_') as $error)
-                            <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
-                        @endforeach
-                    @endif
+                    {{-- @foreach ($errors->get('password_reg') as $error) --}}
+                      @error('password_reg')
+                        <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $message }}</h5>
+                      @enderror 
+                    {{-- @endforeach --}}
                     <div class="input-field">
                       <input class="password" type="password" name="password_confirmation" placeholder="Confirm your password :">
                       <i class="bx bx-lock icon"></i>
                     </div>
-                    @if ($errors->any())
-                        @foreach ($errors->get('password_confirmation') as $error)
-                            <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $error }}</h5>
-                        @endforeach
-                    @endif
+                      @error('password_confirmation')
+                        <h5 class="mt-1 text-danger" style="font-size: 13px">{{ $message }}</h5>
+                      @enderror 
                     <div class="checkbox-text">
                       <div class="checkbox-content">
                         <input type="checkbox" name="" id="conditions">
@@ -105,7 +104,6 @@
                     </div>
                     <div class="input-field button">
                       <button type="submit" name="" class="btn-get-started scrollto col-12" >Signup Now</button>
-                      {{-- <input type="submit" value="Signup Now"> --}}
                     </div>
           
                   </form>

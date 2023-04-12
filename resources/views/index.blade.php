@@ -247,7 +247,7 @@
 
               <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $category->cat_name }}">
                 <div class="portfolio-wrap">
-                  <img src="{{ Storage::url($lesson->les_img) }}" class="img-fluid" alt="">
+                  <img src="{{ Storage::url($lesson->les_img) }}" style="border-radius: 15px" class="img-fluid" alt="">
                   <div class="portfolio-info">
                     <h4>{{ $lesson->les_name }}</h4>
                     <p>{{ $category->cat_name }}</p>
@@ -275,85 +275,35 @@
 
         <div class="section-title">
           <h2>Team</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p>Administration's members for all your personal questions about us.</p>
         </div>
 
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <div class="member-img">
-                <img src="{{ asset("/img/team/team-1.jpg") }}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+          @forelse (App\Models\Admin::all() as $admin)
+
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+              <div class="member" style="border-radius: 15px">
+                <div class="member-img">
+                  <img src="{{ Storage::url($admin->user->path) }}" class="img-fluid" alt="">
+                  <div class="social">
+                    @isset($admin->twitter)<a href="{{ $admin->twitter }}"><i class="bi bi-twitter"></i></a>@endisset
+                    @isset($admin->facebook)<a href="{{ $admin->facebook }}"><i class="bi bi-facebook"></i></a>@endisset
+                    @isset($admin->gmail)<a href="{{ $admin->gmail }}"><i class="bi bi-google"></i></a>@endisset
+                    @isset($admin->linkedin)<a href="{{ $admin->linkedin }}"><i class="bi bi-linkedin"></i></a>@endisset
+                  </div>
+                </div>
+                <div class="member-info">
+                  <h4>{{ $admin->user->user_name }}</h4>
+                  <span>{{ $admin->role }}</span>
                 </div>
               </div>
-              <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Chief Executive Officer</span>
-              </div>
             </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <div class="member-img">
-                <img src="{{ asset("/img/team/team-2.jpg") }}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Product Manager</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <div class="member-img">
-                <img src="{{ asset("/img/team/team-3.jpg") }}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>CTO</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <div class="member-img">
-                <img src="{{ asset("/img/team/team-4.jpg") }}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Amanda Jepson</h4>
-                <span>Accountant</span>
-              </div>
-            </div>
-          </div>
-
+          @empty
+              <h6>Role of admin not yet attributed to anyone else</h6>
+          @endforelse
         </div>
-
+      
       </div>
     </section><!-- End Team Section -->
 

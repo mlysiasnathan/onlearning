@@ -39,11 +39,13 @@
     <section id="portfolio" class="why-us-cat">
       <div class="container">
 
-        <a href="{{ route('category.create') }}" class="btn-get-started mt-3">
-          <i class="bx bx-plus bx-flashing"> </i>New
-        </a>
-
-        <div class="row mt-4">
+        @can('isAdmin')
+          <a href="{{ route('category.create') }}" class="btn-get-started mt-3">
+            <i class="bx bx-plus bx-flashing"> </i>New
+          </a>
+        @endcan
+        
+        <div class="row mt-1">
           @forelse ($categories as $category)
 
             <div class="col-lg-6 mt-lg-3 mt-4">
@@ -54,12 +56,14 @@
                   <h6 class="mt-3" style="font-size: 11px">Created: <strong style="font-size: 11px; font-style:italic">{{ $category->created_at->format('d/m/Y') }}</strong></h6>
                 </div>
               </a>
-              <a href="{{ route('category.delete',['cat_id' => $category->cat_id]) }}" class="text-danger mt-3" onclick="return confirm('DELETE Category : : Are you sure ?')">
-                <i class="bx bx-trash bx-sm bx-border-circle bx-tada-hover mt-3"></i>
-              </a>
-              <a href="{{ route('category.update',['cat_id' => $category->cat_id]) }}" class="text-warning mt-3">
-                <i class="bx bx-pencil bx-sm bx-border-circle bx-tada mt-3"></i>
-              </a>
+              @can('isAdmin')
+                <a href="{{ route('category.delete',['cat_id' => $category->cat_id]) }}" class="text-danger mt-3" onclick="return confirm('DELETE Category : : Are you sure ?')">
+                  <i class="bx bx-trash bx-sm bx-border-circle bx-tada-hover mt-3"></i>
+                </a>
+                <a href="{{ route('category.update',['cat_id' => $category->cat_id]) }}" class="text-warning mt-3">
+                  <i class="bx bx-pencil bx-sm bx-border-circle bx-tada mt-3"></i>
+                </a>
+              @endcan
             </div>
 
           @empty

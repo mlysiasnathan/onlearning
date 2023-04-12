@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\LessonCategory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class CategoriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show', 'create',]);;
+    }
     public function index()
     {
         $categories = LessonCategory::all();
@@ -26,11 +33,17 @@ class CategoriesController extends Controller
 
     public function create()
     {
+        if (Gate::denies('isAdmin')) {
+            abort('403');
+        }
         return view('add_cat');
     }
 
     public function store(Request $request, ?int $cat_id = null)
     {
+        if (Gate::denies('isAdmin')) {
+            abort('403');
+        }
         if ($request->routeIs('category.update.store')) {
 
             $request->validate([
@@ -76,12 +89,18 @@ class CategoriesController extends Controller
 
     public function update(int $cat_id)
     {
+        if (Gate::denies('isAdmin')) {
+            abort('403');
+        }
         $category = LessonCategory::findOrFail($cat_id);
         return view('add_cat' , compact('category'));
     }
 
     public function delete(int $cat_id)
     {
+        if (Gate::denies('isAdmin')) {
+            abort('403');
+        }
         LessonCategory::findOrFail($cat_id)->delete();
         dd('Category deleted !');
     }

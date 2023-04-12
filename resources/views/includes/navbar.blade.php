@@ -17,7 +17,9 @@
             <li><a class="getstarted scrollto" data-bs-toggle="modal" data-bs-target="#login">Log in</a>
           @endguest
           @auth
-            <li class="dropdown"><a href="#"><img src="{{ asset("/img/favicon.png") }}" alt="" class="img-fluid" id="profil-pic"> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href="#">
+              <img src="{{ Storage::url(Auth::user()->path) }}" alt="" class="img-fluid" id="profil-pic"> <i class="bi bi-chevron-down"></i>
+            </a>
               <ul>
                 <li><a href="#">Dark Mode</a></li>
                 <li class="dropdown"><a href="#"><span>{{ Auth::user()->user_name }} 's profil</span> <i class="bi bi-chevron-right"></i></a>
@@ -28,10 +30,7 @@
                 <li><!-- Authentication -->
                   <form method="POST" action="{{ route('logout') }}">
                       @csrf
-
-                      <a href="logout" class="text-danger font-weight-bold" onclick="event.preventDefault();
-                                          this.closest('form').submit();">
-                          {{ __('Log out') }}
+                      <a href="logout" class="text-danger font-weight-bold" onclick="event.preventDefault(); confirm('LOGOUT : : Are you sure ?') ? this.closest('form').submit() : event.preventDefault()"> {{ __('Log out') }}
                   </a>
                   </form></li>
               </ul>

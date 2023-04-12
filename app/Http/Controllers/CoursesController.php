@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class CoursesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['create', 'download_doc']);
+    }
     public function show(string $cat_name, string $les_name)
     {
         $category = LessonCategory::where('cat_name' , $cat_name)->firstOrFail();
