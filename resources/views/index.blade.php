@@ -116,7 +116,7 @@
           <div class="col-lg-3 col-md-6">
             <div class="count-box">
               <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="{{ App\Models\User::all()->count() }}" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="{{ App\Models\User::all()->count() - App\Models\Admin::all()->count() }}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Active Students</p>
             </div>
           </div>

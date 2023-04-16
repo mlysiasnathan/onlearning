@@ -16,21 +16,25 @@
           @guest
             <li><a class="getstarted scrollto" data-bs-toggle="modal" data-bs-target="#login">Log in</a>
           @endguest
+          
           @auth
             <li class="dropdown"><a href="#">
-              <img src="{{ Storage::url(Auth::user()->path) }}" alt="" class="img-fluid" id="profil-pic"> <i class="bi bi-chevron-down"></i>
+              <img src="{{ Storage::url(auth()->user()->path) }}" alt="" class="img-fluid" id="profil-pic"> <i class="bi bi-chevron-down"></i>
             </a>
               <ul>
-                <li><a href="#">Dark Mode</a></li>
-                <li class="dropdown"><a href="#"><span>{{ Auth::user()->user_name }} 's profil</span> <i class="bi bi-chevron-right"></i></a>
-                  <!-- <ul>
-                    <li><a href="#">Deep Drop Down 1</a></li>
-                  </ul> -->
+                <li><a href="#">Dark Mode<i class="bx bx-moon bx-sm"></i></a></li>
+                <li class="dropdown"><a href="#"><span>{{ auth()->user()->user_name }} 's profil</span> <i class="bi bi-chevron-right"></i></a>
+                  <ul>
+                    <li><a href="#"><i class="bx bx-user bx-sm"></i>{{ auth()->user()->user_name }}</a></li>
+                    <li><a href="#"><i class="bx bx-envelope bx-sm"></i>{{ auth()->user()->email }}</a></li>
+                    <li><a href="#" class="btn btn-outline-primary m-1 rounded"><i class="bx bx-history bx-sm"></i>Current course</a></li>
+                    <li><a href="{{ route('profil.show') }}" class="text-warning btn btn-outline-primary m-1 rounded"><i class="bx bx-pencil bx-flashing bx-sm"></i>Edit my profil</a></li>
+                  </ul>
                 </li>
                 <li><!-- Authentication -->
                   <form method="POST" action="{{ route('logout') }}">
                       @csrf
-                      <a href="logout" class="text-danger font-weight-bold" onclick="event.preventDefault(); confirm('LOGOUT : : Are you sure ?') ? this.closest('form').submit() : event.preventDefault()"> {{ __('Log out') }}
+                      <a href="logout" class="btn btn-outline-danger text-danger m-1 font-weight-bold" onclick="event.preventDefault(); confirm('LOGOUT : : Are you sure ?') ? this.closest('form').submit() : event.preventDefault()"> {{ __('Log out') }}
                   </a>
                   </form></li>
               </ul>

@@ -8,9 +8,12 @@ use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegistrationMarkdownMail;
 use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use App\Notifications\UserRegisteredNotification;
 
 class RegisteredUserController extends Controller
 {
@@ -52,6 +55,10 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        $user->notify(new UserRegisteredNotification($user));
+
+        // Mail::to($request->email_reg)->send(new RegistrationMarkdownMail($user));
 
         return redirect(RouteServiceProvider::HOME);
     }

@@ -78,7 +78,14 @@ Route::get('video/{vid_id}/delete',[CoursesController::class, 'delete_video'] )-
 
 //--Users's Routes
 
-Route::get('/users', [UsersController::class, 'users'])->name('users');
+Route::get('/users', [UsersController::class, 'index'])->name('users');
+
+Route::get('/user/profil', [UsersController::class, 'show'])->name('profil.show');
+
+Route::post('/user/profil', [UsersController::class, 'store'])->name('profil.store');
+
+//not yet used
+Route::get('/user/{user_id}/delete', [UsersController::class, 'delete'])->name('profil.delete');
 
 
 
