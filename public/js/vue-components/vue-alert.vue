@@ -1,6 +1,6 @@
 <template>
-    <div class="alert alert-dismissible fade show" :class="type" v-if="alertActive">{{ countdown }}</br>
-      <h6 class="small">{{ message}}</h6>
+    <div class="alert alert-dismissible fade show" :class="type" v-if="alertActive">
+      <h6 class="small">{{ countdown }}-{{ message}}</h6>
       <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </template>

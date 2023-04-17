@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\LessonCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
-class CategoriesController extends Controller
+class ApiCategoriesController extends Controller
 {
     public function __construct()
     {

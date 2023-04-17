@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 
-class UsersController extends Controller
+class ApiUsersController extends Controller
 {
     public function __construct()
     {
@@ -21,8 +21,9 @@ class UsersController extends Controller
     
     public function show()
     {
-        $user = auth()->user();
-        return view('profil')->with('user' , $user);
+        return response([
+            'user' => auth()->user()
+        ], 200);
     }
 
     public function store(Request $request)

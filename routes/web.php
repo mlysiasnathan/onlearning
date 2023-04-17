@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\LessonCategory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CoursesController;
-use App\Http\Controllers\TestPostController;
 use App\Http\Controllers\CategoriesController;
 
 /*
