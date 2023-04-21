@@ -13,18 +13,34 @@ class ApiCoursesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['create', 'download_doc']);
+        $this->middleware('auth:sanctum')->except(['create', 'download_doc']);
     }
+
     public function show(string $cat_name, string $les_name)
     {
-        $category = LessonCategory::where('cat_name' , $cat_name)->firstOrFail();
-        $lesson = Lesson::where('les_name' , $les_name)->firstOrFail();
-        $course = Lesson::whereRaw("cat_id = $category->cat_id and les_id = $lesson->les_id")->firstOrFail(); 
+        $category = LessonCategory::where('cat_name' , $cat_name)->first();
+        if (! $category) {
+            return response([
+                'message' => 'Category not found'
+            ], 404);
+        }
+        $lesson = Lesson::where('les_name' , $les_name)->first();
+        if (! $lesson) {
+            return response([
+                'message' => 'Lesson not found'
+            ], 404);
+        }
+        $course = Lesson::whereRaw("cat_id = $category->cat_id and les_id = $lesson->les_id")->first(); 
+        if (! $course) {
+            return response([
+                'message' => 'Course not found'
+            ], 404);
+        }
 
         if ($course){
-            return view('lesson', [
-                'course' => $course,
-            ])->with('category_name' , $category->cat_name);
+            return response([
+                'course' => $course
+            ], 200);
         } 
         
     }
@@ -41,60 +57,100 @@ class ApiCoursesController extends Controller
             $request->validate([
                 'name' => ['required' , 'min:2'],
                 'description' => ['required',],
-                'image' => ['required',],
+                // 'image' => ['required',],
             ]);
 
-            $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
-            $image_path = $request->image->storeAs('img/courses', $filename, 'public');
+            // $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
+            // $image_path = $request->image->storeAs('img/courses', $filename, 'public');
 
-            $course = Lesson::findOrFail((int)$les_id);
-            $category = LessonCategory::findOrFail((int)$cat_id);
+            $course = Lesson::find((int)$les_id);
+            if (! $course) {
+                return response([
+                    'message' => 'Course not found'
+                ], 404);
+            }
+            $category = LessonCategory::find((int)$cat_id);
+            if (! $category) {
+                return response([
+                    'message' => 'Category not found'
+                ], 404);
+            }
             $course->update([
                 'les_name' => $request->name,
                 'les_content' => $request->description,
                 'cat_id' => $category->cat_id,
                 'les_price' => (int)$request->price,
-                'les_img' => $image_path,
+                // 'les_img' => $image_path,
+                'les_img' => 'null',
                 'updated_at' => now(),
             ]);
-            dd('course updated');
+            return response([
+                'message' => 'Course updated Successfully',
+                'course' => $course
+            ], 200);
 
         } else {
 
             $request->validate([
                 'name' => ['required' , 'min:2' , 'unique:lessons,les_name'],
                 'description' => ['required',],
-                'image' => ['required',],
+                // 'image' => ['required',],
             ]);
-            $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
-            $image_path = $request->image->storeAs('img/courses', $filename, 'public');
+            // $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
+            // $image_path = $request->image->storeAs('img/courses', $filename, 'public');
 
-            $category = LessonCategory::findOrFail((int)$cat_id);
-            Lesson::create([
+            $category = LessonCategory::find((int)$cat_id);
+            if (! $category) {
+                return response([
+                    'message' => 'Category not found'
+                ], 404);
+            }
+            $course = Lesson::create([
                 'les_name' => $request->name,
                 'les_content' => $request->description,
                 'cat_id' => (int)$category->cat_id,
                 'les_price' => (int)$request->price,
-                'les_img' => $image_path,
+                // 'les_img' => $image_path,
+                'les_img' => 'null',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-            dd('course created');
+            return response([
+                'message' => 'Course created Successfully',
+                'course' => $course
+            ], 200);
         }
         
     }
 
     public function update(int $cat_id, int $les_id)
     {
-        $category = LessonCategory::findOrFail($cat_id);
-        $course = Lesson::findOrFail($les_id);
+        $category = LessonCategory::find($cat_id);
+        if (! $category) {
+            return response([
+                'message' => 'Category not found'
+            ], 404);
+        }
+        $course = Lesson::find($les_id);
+        if (! $course) {
+            return response([
+                'message' => 'Course not found'
+            ], 404);
+        }
         return view('add_course' , compact('course' , 'category'));
     }
 
     public function delete(int $les_id)
     {
-        Lesson::findOrFail($les_id)->delete();
-        dd('Course deleted !');
+        $course = Lesson::find($les_id)->delete();
+        if (! $course) {
+            return response([
+                'message' => 'Course not found'
+            ], 404);
+        }
+        return response([
+            'message' => 'Course deleted Successfully',
+        ], 200);
     }
 
     public function store_doc(Request $request, int $les_id)
@@ -103,37 +159,63 @@ class ApiCoursesController extends Controller
             'document' => ['required'],
         ]);
 
-        $course = Lesson::findOrFail($les_id);
+        $course = Lesson::find($les_id);
+        if (! $course) {
+            return response([
+                'message' => 'Course not found'
+            ], 404);
+        }
         $filename = 'doc_of_' . str_replace(' ', '_',$course->les_name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->document->extension();
         $doc_path = $request->document->storeAs('documents', $filename, 'public');
 
-        LessonPdf::create([
+        $doc = LessonPdf::create([
             'les_id' => $course->les_id,
             'pdf_file' => $doc_path,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        dd('Document created successfully');
+        return response([
+            'message' => 'Document created Successfully',
+            'document' => $doc
+        ], 200);
     }
 
     public function download_doc(int $pdf_id)
     {
-        $doc = LessonPdf::findOrFail($pdf_id);
+        $doc = LessonPdf::find($pdf_id);
+        if (! $doc) {
+            return response([
+                'message' => 'Document not found'
+            ], 404);
+        }
         
         if (Storage::disk('public')->exists($doc->pdf_file)) {
             // return Storage::download($doc->pdf_file);
-            return redirect(Storage::url($doc->pdf_file));
-            // dd('Document dowloaded Successfully');
+            // return redirect(Storage::url($doc->pdf_file));
+            return response([
+                'message' => 'Document dowloaded Successfully',
+                'document' => Storage::url($doc->pdf_file)
+            ], 200);
         } else {
-            dd('file not exists');
+            return response([
+                'message' => 'Document not exists',
+            ], 404);
         }
         
     }
 
     public function delete_doc(int $doc_id)
     {
-        LessonPdf::findOrFail($doc_id)->delete();
-        dd('Document deleted successfully');
+        $doc = LessonPdf::find($doc_id);
+        if (! $doc) {
+            return response([
+                'message' => 'Document not found'
+            ], 404);
+        }
+        $doc->delete();
+        return response([
+            'message' => 'Document deleted successfully',
+        ], 200);
     }
 
     public function store_video(Request $request, int $les_id)
@@ -143,15 +225,23 @@ class ApiCoursesController extends Controller
             'video_name' => ['required'],
         ]);
 
-        $course = Lesson::findOrFail($les_id);
-        LessonVideo::create([
+        $course = Lesson::find($les_id);
+        if (! $course) {
+            return response([
+                'message' => 'Course not found'
+            ], 404);
+        }
+        $video = LessonVideo::create([
             'les_id' => $course->les_id,
             'vid_name' => $request->video_name,
             'vid_file' => $request->video_link,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        dd('Video added successfully');
+        return response([
+            'message' => 'Video added successfully',
+            'video' => $video
+        ], 200);
     }
 
     public function update_video(Request $request, int $les_id, int $vid_id)
@@ -161,20 +251,42 @@ class ApiCoursesController extends Controller
             'video_name' => ['required'],
         ]);
 
-        Lesson::findOrFail($les_id);
-        $video = LessonVideo::findOrFail($vid_id);
+        $course = Lesson::find($les_id);
+        if (! $course) {
+            return response([
+                'message' => 'Course not found'
+            ], 404);
+        }
+        $video = LessonVideo::find($vid_id);
+        if (! $video) {
+            return response([
+                'message' => 'Video not found'
+            ], 404);
+        }
         $video->update([
             'vid_name' => $request->video_name,
             'vid_file' => $request->video_link,
             'updated_at' => now(),
         ]);
-        dd('Video updated successfully');
+        return response([
+            'message' => 'Video updated successfully',
+            'video' => $video
+        ], 200);
+        
     }
 
     public function delete_video(int $vid_id)
     {
-        LessonVideo::findOrFail($vid_id)->delete();
-        dd('Video deleted successfully');
+        $video = LessonVideo::find($vid_id);
+        if (! $video) {
+            return response([
+                'message' => 'Video not found'
+            ], 404);
+        }
+        $video->delete();
+        return response([
+            'message' => 'Video deleted successfully',
+        ], 200);
     }
     
 }

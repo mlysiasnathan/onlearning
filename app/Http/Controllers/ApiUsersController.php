@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class ApiUsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:sanctum');
     }
 
     public function index()
     {
+        if (Gate::denies('isAdmin')) {
+            return response([
+                'message' => 'Admin Permissions needed',
+            ], 403);
+        }
         $users = User::all();
         return view('users')->with('users' , $users);;
     }
@@ -53,9 +59,19 @@ class ApiUsersController extends Controller
     public function delete(int $user_id)
     {
         if (Gate::denies('isAdmin')) {
-            abort('403');
+            return response([
+                'message' => 'Admin Permissions needed',
+            ], 403);
         }
-        User::findOrFail($user_id)->delete();
-        dd("User's account deleted successfully");
+        $user = User::findOrFail($user_id)->delete();
+        if (! $user) {
+            return response([
+                'message' => 'User not found'
+            ], 404);
+        }
+        $user->delete();
+        return response([
+            'message' => "User's account deleted successfully",
+        ], 200);
     }
 }

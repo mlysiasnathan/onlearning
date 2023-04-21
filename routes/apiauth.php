@@ -35,7 +35,7 @@ Route::middleware('guest')->group(function () {
                 ->name('password.update');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('verify-email', [ApiEmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 

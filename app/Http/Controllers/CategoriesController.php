@@ -38,6 +38,7 @@ class CategoriesController extends Controller
 
     public function store(Request $request, ?int $cat_id = null)
     {
+        // dd($request->image);
         if (Gate::denies('isAdmin')) {
             abort('403');
         }

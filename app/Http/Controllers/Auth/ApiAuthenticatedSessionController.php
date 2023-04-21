@@ -62,7 +62,7 @@ class ApiAuthenticatedSessionController extends Controller
         // $request->session()->regenerateToken();
 
         // return redirect('/');
-        auth()->user()-tokens()->delete();
+        auth()->user()->tokens()->delete();
         return response([
             'message' => 'Logout Success'
         ], 200);
