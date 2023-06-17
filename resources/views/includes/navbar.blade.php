@@ -1,7 +1,7 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top m-2">
     <div class="container d-flex align-items-center justify-content-between">
-      <a href="{{ route("home") }}" class="logo"><img src="{{ asset("/img/apple-touch-icon.png") }}" rel="icon" alt="" class="img-fluid small"></a>
+      <a href="{{ route("home") }}" class="logo"><img src="{{ asset("/img/favicon.jpg") }}" rel="icon" alt="" class="img-fluid rounded large"></a>
       <h1 class="logo"><a href="{{ route("home") }}">OnLearning</a></h1>      
 
       <nav id="navbar" class="navbar">

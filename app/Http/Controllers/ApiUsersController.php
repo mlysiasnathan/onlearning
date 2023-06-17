@@ -53,7 +53,10 @@ class ApiUsersController extends Controller
             'path' => $image_path,
             'updated_at' => now(),
         ]);
-        dd('Profil Updated successfully');
+        return response([
+            'message' => "Profil Updated successfully",
+            'user' => auth()->user(),
+        ], 200);
     }
 
     public function delete(int $user_id)

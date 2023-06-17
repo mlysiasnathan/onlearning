@@ -11,12 +11,16 @@
       <div class="row">
         <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
           <h1>Get the skills you need for a tech career in just 3 months.</h1>
-          <div id="message-active">
+          <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11" id="message-active">
 
             @if ($errors->any())
               @foreach ($errors->all() as $error)
-                <vue-alert type="alert-danger" message="{{ $error }}" :start="8"></vue-alert>
+                <vue-alert type="bg-danger" message="{{ $error }}" :start="8"></vue-alert>
               @endforeach
+            @endif
+            
+            @if (session('message'))
+              <vue-alert type="bg-success" message="{{ session('message') }}" :start="5"></vue-alert>
             @endif
 
           </div>
@@ -31,7 +35,8 @@
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img">
-          <img src="{{ asset("/img/hero-img.png") }}" class="img-fluid" alt="" style="height: 409px; width: 236px">
+          <img src="{{ asset("/img/favicon.jpg") }}" class="img-fluid" alt="" style="height: 409px; width: 409px;border-radius:15%">
+          {{-- <img src="{{ asset("/img/hero-img.png") }}" class="img-fluid" alt="" style="height: 409px; width: 236px"> --}}
         </div>
       </div>
     </div>
@@ -49,6 +54,20 @@
   </section><!-- End Hero -->
 
   <main id="main">
+    {{-- <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+
+      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            Hello, world! This is a toast message.
+          </div>
+        </div>
+      </div> --}}
 
     <!-- ======= About Section ======= -->
     <section id="about" class="about">

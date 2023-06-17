@@ -1,2 +1,6 @@
 for creation of factory in php artisan tinker
 Post::factory()->count(5)->create();
+
+
+CLI- if you need to create migration,model and controller in singnle line commands
+php artisan make:model Category -mcr

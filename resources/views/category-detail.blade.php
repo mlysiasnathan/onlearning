@@ -28,12 +28,14 @@
 
     </section><!-- End Breadcrumbs -->
 
-    <div id="message-active" class="col-lg-4">
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11" id="message-active">
+
       @if ($errors->any())
         @foreach ($errors->all() as $error)
-          <vue-alert type="alert-danger" message="{{ $error }}" :start="8"></vue-alert>
+          <vue-alert type="bg-danger" message="{{ $error }}" :start="8"></vue-alert>
         @endforeach
       @endif
+
     </div>
     
 

@@ -215,7 +215,7 @@
 // LOG IN
 let alertVue = Vue.component('vue-alert', {
   props: {
-    type: {type: String, default: 'alert-primary'},
+    type: {type: String, default: 'bg-danger'},
     message: {type : String, default: 'Alert found'},
     start: {type: Number, default: 4}
   },
@@ -241,12 +241,21 @@ let alertVue = Vue.component('vue-alert', {
       }, 1000);
   },
   template: 
-  `<transition name="fade">
-      <div class="alert alert-dismissible fade show" :class="type" v-if="alertActive">{{ countdown }}</br>
-        <h6 class="small">{{ message}}</h6>
-        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+  `
+  <transition name="fade" appear>
+      
+      <div class="toast text-white border-4 show mt-2" :class="type" v-if="alertActive" role="alert" aria-live="assertive" aria-atomic="true" style="border-radius: 50px">
+        <div class="d-flex">
+          <div class="toast-body">
+            <span style="font-size: 13px">{{ countdown }} <strong> {{ message}}</strong></span> 
+          </div>
+          <button @click="() =>  alertActive = false" type="button" class="btn-close me-3 m-auto border-3 border-light rounded-circle" ></button>
+          
+        </div>
       </div>
-    </transition>`,
+
+    </transition>
+    `,
 })
 // import {alertVue} from './vue-components/vue-alert.vue';
 

@@ -1,8 +1,10 @@
 <template>
-    <div class="alert alert-dismissible fade show" :class="type" v-if="alertActive">
-      <h6 class="small">{{ countdown }}-{{ message}}</h6>
-      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    <transition name="fade" appear>
+      <div class="alert alert-dismissible fade show" :class="type" v-if="alertActive">
+        <h6 class="small">{{ countdown }}    {{ message}}</h6>
+        <button class="btn-close rounded-circle" type="button"  @click="() =>  alertActive = false"></button>
+      </div>
+    </transition>
 </template>
 
 <script>

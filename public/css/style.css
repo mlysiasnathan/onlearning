@@ -1784,4 +1784,10 @@ section {
     font-size: 14px;
   }
 }
-
+.fade-enter-active, .fade-leave-active{
+  transition: opacity 0.7s, transform 0.7s;
+}
+.fade-enter, .fade-leave-active{
+  opacity: 0;
+  transform: translateX(30px);
+}

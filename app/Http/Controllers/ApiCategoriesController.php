@@ -65,11 +65,11 @@ class ApiCategoriesController extends Controller
             $request->validate([
                 'name' => ['required' , 'min:2'],
                 'description' => ['required',],
-                // 'image' => ['required',],
+                'image' => ['required',],
             ]);
 
-            // $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
-            // $image_path = $request->image->storeAs('img/categories', $filename, 'public');
+            $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
+            $image_path = $request->image->storeAs('img/categories', $filename, 'public');
 
             $category = LessonCategory::find((int)$cat_id);
             if (! $category) {
@@ -80,7 +80,7 @@ class ApiCategoriesController extends Controller
             $category->update([
                 'cat_name' => $request->name,
                 'cat_description' => $request->description,
-                // 'cat_img' => $image_path,
+                'cat_img' => $image_path,
                 'cat_img' => 'null',
                 'updated_at' => now(),
             ]);
@@ -95,15 +95,15 @@ class ApiCategoriesController extends Controller
             $request->validate([
                 'name' => ['required' , 'min:2' , 'unique:lesson_categories,cat_name'],
                 'description' => ['required',],
-                // 'image' => ['required',],
+                'image' => ['required',],
             ]);
-            // $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
-            // $image_path = $request->image->storeAs('img/categories', $filename, 'public');
+            $filename = str_replace(' ', '_',$request->name)  . now()->format('_Y_M_d_H\h-i'). '.' . $request->image->extension();
+            $image_path = $request->image->storeAs('img/categories', $filename, 'public');
             
             $category = LessonCategory::create([
                 'cat_name' => $request->name,
                 'cat_description' => $request->description,
-                // 'cat_img' => $image_path,
+                'cat_img' => $image_path,
                 'cat_img' => 'null',
                 'created_at' => now(),
                 'updated_at' => now(),

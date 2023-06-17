@@ -35,11 +35,11 @@ class ApiCoursesController extends Controller
             return response([
                 'message' => 'Course not found'
             ], 404);
-        }
-
-        if ($course){
+        }else{
             return response([
-                'course' => $course
+                'course' => Lesson::whereRaw("cat_id = $category->cat_id and les_id = $lesson->les_id")->first(),
+                'documents' => $course->lesson_pdfs,
+                'videos' => $course->lesson_videos,
             ], 200);
         } 
         
